@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Paranormantes - Portal do Oculto</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap">
+  <style>
+    :root {
+      --blood-red: #ff0000;
+      --ghost-blue: #0ff;
+      --mystic-purple: #bb00ff;
+      --dark-bg: #000;
+      --panel-bg: #111;
+      --text-color: #e0e0e0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      font-family: 'Cinzel', 'Goudy Old Style', serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(187, 0, 255, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 50% 30%, rgba(0, 255, 255, 0.03) 0%, transparent 20%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 0 20px;
+      border-bottom: 1px solid #333;
+      position: relative;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 4em;
+      color: var(--blood-red);
+      text-shadow: 0 0 10px var(--blood-red), 0 0 20px var(--blood-red);
+      margin: 0;
+      letter-spacing: 3px;
+      position: relative;
+      animation: pulsate 2s infinite alternate;
+    }
+
+    nav {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    nav a {
+      color: #ff4444;
+      text-decoration: none;
+      font-size: 1.1em;
+      text-shadow: 0 0 5px #ff0000;
+      padding: 5px 10px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover, nav a.active {
+      color: #ff0000;
+      font-weight: bold;
+      text-shadow: 0 0 8px #ff0000;
+      border-color: #ff0000;
+      background-color: rgba(255, 0, 0, 0.1);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--blood-red);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .intro {
+      margin: 30px 0;
+      font-style: italic;
+      text-align: center;
+      font-size: 1.4em;
+      color: #ccc;
+      text-shadow: 0 0 8px #fff;
+      padding: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Estilo simplificado para relatos sem box */
+    .relato {
+      margin-top: 30px;
+      padding: 0;
+      background-color: transparent;
+      border-left: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .relato h3 {
+      color: var(--mystic-purple);
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px var(--mystic-purple);
+      font-size: 1.8em;
+      border-bottom: 1px solid rgba(187, 0, 255, 0.3);
+      padding-bottom: 8px;
+    }
+
+    .relato p {
+      margin: 15px 0;
+      font-size: 1.1em;
+      line-height: 1.7;
+    }
+
+    .relato small {
+      color: #999;
+      display: block;
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+
+    .guia-semana {
+      margin-top: 50px;
+      padding: 25px;
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+      position: relative;
+    }
+
+    .guia-semana h2 {
+      color: #ff00ff;
+      text-shadow: 0 0 5px #f0f;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 0, 255, 0.3);
+      padding-bottom: 10px;
+    }
+
+    .guia-semana p {
+      margin: 10px 0;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      text-align: center;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    /* Página específica */
+    .page {
+      display: none;
+      animation: fadeIn 0.5s ease;
+      padding: 20px 0;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* Estilo para a página de comentários protegidos */
+    .protected-comments {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid #ff0000;
+      border-radius: 5px;
+    }
+
+    .password-form {
+      margin: 15px 0;
+      display: flex;
+      gap: 10px;
+    }
+
+    .password-form input {
+      flex: 1;
+      padding: 8px 12px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid #333;
+      color: #fff;
+      font-family: inherit;
+      border-radius: 4px;
+    }
+
+    .password-form button {
+      padding: 8px 15px;
+      background-color: var(--blood-red);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.3s;
+    }
+
+    .password-form button:hover {
+      background-color: #cc0000;
+    }
+
+    .comments-section {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .comment {
+      padding: 15px;
+      background-color: rgba(30, 30, 30, 0.7);
+      border-left: 3px solid #444;
+      margin-bottom: 15px;
+      border-radius: 3px;
+    }
+
+    .comment-author {
+      color: #ff5555;
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .adm-comment {
+      border-left: 3px solid var(--blood-red);
+    }
+
+    .adm-comment .comment-author {
+      color: var(--blood-red);
+    }
+
+    /* Estilo para a página do enigma */
+    .enigma-container {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: rgba(26, 26, 26, 0.8);
+      border: 1px solid var(--mystic-purple);
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(187, 0, 255, 0.3);
+    }
+
+    .enigma-question {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      color: var(--ghost-blue);
+      text-align: center;
+      font-style: italic;
+    }
+
+    .enigma-form {
+      display: flex;
+      gap: 10px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .enigma-form input {
+      flex: 1;
+      padding: 10px 15px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid #444;
+      color: #fff;
+      font-family: inherit;
+      border-radius: 4px;
+    }
+
+    .enigma-form button {
+      padding: 10px 20px;
+      background-color: var(--mystic-purple);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.3s;
+    }
+
+    .enigma-form button:hover {
+      background-color: #9900cc;
+    }
+
+    .truths-section {
+      margin-top: 30px;
+      display: none;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--ghost-blue);
+      border-radius: 5px;
+    }
+
+    .truths-section h3 {
+      color: var(--ghost-blue);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .truth-item {
+      margin: 15px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .truth-item::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--ghost-blue);
+    }
+
+    /* Animations */
+    @keyframes pulsate {
+      0% {
+        text-shadow: 0 0 10px var(--blood-red), 0 0 20px var(--blood-red);
+      }
+      100% {
+        text-shadow: 0 0 15px var(--blood-red), 0 0 30px var(--blood-red), 0 0 40px #ff0000;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Admin hover effect */
+    .adm-hover {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      color: var(--blood-red);
+      text-shadow: 0 0 5px var(--blood-red);
+    }
+
+    .adm-hover img {
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      width: 120px;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
+    }
+
+    .adm-hover:hover img {
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* Botões de relato */
+    .report-summary {
+      margin-top: 30px;
+      padding: 15px;
+      border-left: 3px solid var(--ghost-blue);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .report-summary:hover {
+      background-color: rgba(17, 17, 17, 0.3);
+      transform: translateX(5px);
+    }
+
+    .report-summary h3 {
+      color: var(--mystic-purple);
+      margin-bottom: 5px;
+      text-shadow: 0 0 5px var(--mystic-purple);
+    }
+
+    .report-summary p {
+      color: #ccc;
+      margin: 5px 0;
+    }
+
+    .report-summary small {
+      color: #999;
+    }
+
+    /* --- Estilos específicos para a página do mutilador --- */
+    .mutilador-relato h2 {
+      color: var(--mystic-purple);
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px var(--mystic-purple);
+      font-size: 2.2em;
+      border-bottom: 1px solid rgba(187, 0, 255, 0.3);
+      padding-bottom: 8px;
+    }
+
+    .mutilador-relato h3 {
+      color: var(--ghost-blue);
+      margin: 25px 0 15px;
+      text-shadow: 0 0 5px var(--ghost-blue);
+      font-size: 1.5em;
+    }
+
+    .mutilador-relato p {
+      margin: 15px 0;
+      font-size: 1.1em;
+      line-height: 1.7;
+    }
+
+    .mutilador-relato strong {
+      color: #ff5555;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 30px 0;
+      justify-content: center;
+    }
+
+    .image-block {
+      text-align: center;
+      max-width: 320px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .image-block:hover {
+      transform: translateY(-5px);
+    }
+
+    .image-block img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 5px;
+      transition: all 0.5s ease;
+      border: 1px solid rgba(255, 0, 0, 0.3);
+    }
+
+    .image-block p {
+      margin-top: 10px;
+      padding: 8px;
+      background-color: rgba(17, 17, 17, 0.7);
+      border-radius: 4px;
+    }
+
+    .comment-section {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: rgba(26, 26, 26, 0.6);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      border-radius: 5px;
+    }
+
+    .comment-section h3 {
+      color: var(--blood-red);
+      text-shadow: 0 0 5px var(--blood-red);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+    }
+
+    .mutilador-comment {
+      padding: 15px;
+      background-color: rgba(30, 30, 30, 0.7);
+      border-left: 3px solid #444;
+      margin-bottom: 15px;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .mutilador-comment:hover {
+      background-color: rgba(40, 30, 40, 0.8);
+    }
+
+    .mutilador-comment.adm {
+      border-left: 3px solid var(--blood-red);
+      background-color: rgba(50, 20, 20, 0.7);
+    }
+
+    .mutilador-comment p {
+      margin: 0;
+    }
+
+    .mutilador-comment .comment-author {
+      color: #ff5555;
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .adm .comment-author {
+      color: var(--blood-red);
+    }
+
+    .warning {
+      padding: 15px;
+      background-color: rgba(150, 0, 0, 0.2);
+      border: 1px solid var(--blood-red);
+      border-radius: 5px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 3em;
+      }
+      
+      .container {
+        padding: 15px;
+      }
+      
+      .password-form, .enigma-form {
+        flex-direction: column;
+      }
+      
+      .gallery {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .image-block {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>PARANORMANTES</h1>
+      <nav>
+        <a href="#" class="nav-link active" data-page="home">Início</a>
+        <a href="#" class="nav-link" data-page="about">Sobre</a>
+        <a href="#" class="nav-link" id="random-report-link" data-page="reports">Relatos</a>
+        <a href="#" class="nav-link" data-page="enigma">Enigma</a>
+      </nav>
+    </header>
+
+    <!-- Página Inicial -->
+    <div id="home-page" class="page active">
+      <div class="intro">
+        “Afinando o véu do oculto para revelar a verdade”
+      </div>
+
+      <div class="report-summary" data-report="mutilador">
+        <h3>O MUTILADOR DO PARQUE MUNICIPAL</h3>
+        <p>Uma figura sem rosto, mas com um sorriso macabro, tem perseguido visitantes do parque...</p>
+        <small>por: @vigia_noturno</small>
+      </div>
+
+      <div class="report-summary" data-report="et">
+        <h3>DECIFREI O ENIGMA DO ET DO SAGRADA FAMÍLIA</h3>
+        <p>Por anos as pessoas têm tentado decifrar o código que o suposto alienígena deixou no bairro...</p>
+        <small>por: @Decifrrnnd</small>
+      </div>
+
+      <div class="report-summary" data-report="homem">
+        <h3>HOMEM SEM PELE É AVISTADO NA ESTAÇÃO SANTA INÊS</h3>
+        <p>Pessoas estão relatando que um homem "sem pele" estava atacando passageiros do metrô...</p>
+        <small>por: @VanHell66</small>
+      </div>
+
+      <div class="guia-semana">
+        <h2>GUIA DA SEMANA</h2>
+        <p>Olá, Paranormantes. Um verdadeiro ocultista deve ser versado no outro lado. Para isso ele deve se familiarizar com rituais. Por isso, irei disponibilizar para o primeiro seguidor que resolver o novo enigma o meu livro de rituais.</p>
+        <p><strong class="adm-hover">@D7_Revz [ADM]<img src=simbolo.png alt="simbolo"></strong></p>
+      </div>
+    </div>
+
+    <!-- Página Sobre -->
+    <div id="about-page" class="page">
+      <div class="guia-semana">
+        <h2>QUEM SOMOS</h2>
+        <p>A equipe de administradores do Paranormantes é composta por versados ocultistas que estudaram durante anos como acessar e manipular o sobrenatural. Nós nos comprometemos a utilizar esse site como ferramenta para alcançar novos entusiastas pelo oculto e espalhar nosso conhecimento.</p>
+        
+        <h3 style="margin-top:25px;color:#ff00ff;">Nossa Missão</h3>
+        <p>Levar para todos a verdade: O Paranormal existe e através dele podemos transcender nossas capacidades humanas. Para isso nós devemos conhecer mais e mais sobre o oculto. Por isso o site fomenta a publicação de relatos e incentiva a investigação desses casos.</p>
+        
+        <h3 style="margin-top:25px;color:#0ff;">Nossos Membros</h3>
+        <ul style="margin-left:20px;margin-top:15px;">
+          <li><strong>D7_Revz</strong> - Criador do site e mestre do paranormal, responsável pelo guia semanal do oculto.</li>
+          <li><strong>Vampira45</strong> - Co Criadora do site, responsável por aprovar e curar os relatos publicados</li>
+          <li><strong>CountOrlukas</strong></li>
+          <li><strong>AlucardMineiro</strong></li>
+          <li><strong>millaredblood</strong></li>
+          <li><strong>Lucia_TheWife09</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Página de Relatos Detalhados -->
+    <div id="reports-page" class="page">
+      <!-- Relato do ET (inicialmente oculto) -->
+      <div id="et-report" class="relato" style="display:none;">
+        <h3>DECIFREI O ENIGMA DO ET DO SAGRADA FAMÍLIA</h3>
+        <p><strong>Data do relato:</strong> 012/05/2025 | <strong>Autor:</strong> @Decifernnd</p>
+        <p>Por anos as pessoas têm tentado decifrar o código que o suposto alienígena deixou no bairro sagrada família. O código estava escrito em paredes, no asfalto, em carros e até mesmo em animais de rua. Antes desse fenômeno estranho muitas pessoas relataram ver luzes estranhas e figuras esguias andando pelo bairro na madrugada.</p>
+        <p>Mas indo direto ao ponto, eu consegui decifrar o código que eles deixaram, se trata de um alfabeto diferente, MAS ESTÁ ESCRITO EM PORTUGUÊS!!!</p>
+        <p>O CÓDIGO: =$ @%8$@?"*+@/@8)$= / (@/</p>
+        <p>TRADUÇÃO: Estamos aqui para observar</p>
+        <p>Acho que isso é evidência suficiente de que realmente foi um fenômeno alienígena!!!!</p>
+        
+        <div class="protected-comments" style="margin-top:30px;">
+          <h4 style="color:#ff5555;">Comentários:</h4>
+          <div class="comment">
+            <div class="comment-author">🔍 TruthNotFoundUAISO</div>
+            <p>MDS!! isso é realmente incrível, posso conversar com vc no pv?? essa decodificação vai ser muito útil para minha pesquisa, mas não acho que são aliens…</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">????ERROR???</div>
+            <p>"%\~/@][=[*@$=@+/8>*%@?"@][θ(=/-%8$¢@/)]=$= 8/]@/%= @&lt;</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Relato do Homem sem Pele (inicialmente oculto) -->
+      <div id="homem-report" class="relato" style="display:none;">
+        <h3>HOMEM SEM PELE É AVISTADO NA ESTAÇÃO SANTA INÊS</h3>
+        <p><strong>Data do relato:</strong> 027/05/2025 | <strong>Autor:</strong> @VanHell66</p>
+        <p>Pessoas estão relatando que um homem "sem pele" estava atacando passageiros do metrô que desembarcaram na estação Santa Inês. Os ataques aparentemente aconteceram no túnel que leva da estação para a avenida Contagem às 23h. Os relatos dizem que o local estava completamente coberto por uma estranha e fria neblina e que o homem sem pele estava devorando um cadáver.</p>
+        <p>Por que a polícia não está investigando isso? Porque os canais não estão noticiando esse acontecimento? O que querem esconder da gente?</p>
+        <p>O Sobrenatural existe, querem esconder isso da gente, mas nós somos os rebeldes que salvarão essa cidade.</p>
+        
+        <div class="protected-comments" style="margin-top:30px;">
+          <h4 style="color:#ff5555;">COMENTÁRIOS PROTEGIDOS</h4>
+          <p style="font-size:0.9em;color:#999;">(OS COMENTÁRIOS DESSA POSTAGEM FORAM OCULTADOS, DIGITE A SENHA DA ADMINISTRAÇÃO PARA ACESSÁ-LOS)</p>
+          
+          <div class="password-form">
+            <input type="password" id="comment-password" placeholder="Digite a senha...">
+            <button id="unlock-comments">DESBLOQUEAR</button>
+          </div>
+          
+          <div id="comments-section" class="comments-section">
+            <div class="comment">
+              <div class="comment-author">JUNINHODOGRAU</div>
+              <p>krai mano q bagulho bizarro</p>
+            </div>
+            <div class="comment">
+              <div class="comment-author">witchdaserra</div>
+              <p>Nossa q horrível</p>
+            </div>
+            <div class="comment">
+              <div class="comment-author">🔍 TruthNotFoundUAISO</div>
+              <p>Esse texto é bem pesado, mas garanto a vocês que se fosse um problema real já teria sido noticiado.</p>
+            </div>
+            <div class="comment adm-comment">
+              <div class="comment-author">AlucardMineiro (ADM)</div>
+              <p>KKKKKKKKKKKKK @CountOrlukas isso foi culpa sua, se vc não tivesse errado o ritual esses normies não saberiam de nada</p>
+            </div>
+            <div class="comment adm-comment">
+              <div class="comment-author">CountOrlukas (ADM)</div>
+              <p>Cala a boca, eu ia lá saber que o cara que a gente pegou era ex militar?</p>
+            </div>
+            <div class="comment adm-comment">
+              <div class="comment-author">🧛 Vampira45 (ADM)</div>
+              <p>Parabéns para vocês dois, agora vou ter q pedir para o @D7_Revz ocultar esses comentários</p>
+            </div>
+            <div class="comment adm-comment">
+              <div class="comment-author">AlucardMineiro(ADM)</div>
+              <p>Foi mal, mas tive que zuar o inútil do Lucas kjkjkjkjkjkjkj o cara não sabe fazer um ritual simples sem fuder com tudo kkkkkkkk</p>
+            </div>
+            <div class="comment adm-comment">
+              <div class="comment-author">🧛 Vampira45(ADM)</div>
+              <p>Vc não entendeu que é pra vc PARAR DE COMENTAR????? ainda mais com aquele agente da UAISO por aqui, se eles suspeitarem vai dar ruim pra gente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Página do Mutilador Detalhada -->
+    <div id="mutilador-page" class="page">
+      <div class="mutilador-relato">
+        <h2>O MUTILADOR DO PARQUE MUNICIPAL</h2>
+        <p><strong>Data do relato:</strong> 06/06/2025 | <strong>Autor:</strong> @Vigia_Noturno</p>
+        
+        <div class="warning">
+          <p>⚠️ ATENÇÃO: Este conteúdo contém descrições gráficas que podem ser perturbadoras para alguns leitores.</p>
+        </div>
+        
+        <p>Nas últimas semanas, relatos inquietantes vêm surgindo sobre uma figura estranha que assombra o Parque Municipal de Belo Horizonte. Testemunhas afirmam ver uma criatura alta, vestida com roupas esfarrapadas, com um rosto sem olhos ou nariz, apenas um sorriso permanente, largo e distorcido.</p>
+        
+        <p>Ele segura uma faca e segue suas vítimas lentamente, como se estivesse brincando com elas. Os primeiros desaparecimentos ocorreram há três semanas, e desde então, quatro pessoas foram encontradas mutiladas de maneira ritualística na região do centro da cidade.</p>
+        
+        <p>A polícia insiste em chamar de "casos isolados", mas nós sabemos que há um padrão. Eu mesmo vi a criatura na noite passada, enquanto patrulhava o parque. Quando encarei ela, senti um frio que penetrou até os ossos e só consegui corre em pânico.</p>
+        
+        <h3>IMAGENS ENVIADAS POR USUÁRIOS</h3>
+        
+        <div class="gallery">
+          <div class="image-block" id="image1">
+            <img src="caminho.jpeg" alt="Caminho no parque">
+            <p><strong>@TifuTifuTifu</strong>: Sinto que alguma coisa estava me observando à distância...</p>
+          </div>
+          
+          <div class="image-block" id="image2">
+            <img src="Estatua.jpeg" alt="Estátua estranha">
+            <p><strong>@LucciaLAGOINHA</strong>: Tem alguma coisa estranha com essa estátua. Não sei dizer o que é.</p>
+          </div>
+        </div>
+        
+        <p>Os ataques sempre ocorrem após a meia-noite, quando o parque está oficialmente fechado. A criatura parece ter preferência por vítimas que estão sozinhas, especialmente aquelas que desafiam os avisos de segurança e permanecem no parque após o horário de fechamento.</p>
+        
+        <p>Se você notar qualquer atividade suspeita no parque, especialmente após o anoitecer, entre em contato imediatamente com as autoridades. Não se aproxime da figura e não tente confrontá-la. A criatura parece se alimentar do medo, então mantenha a calma e saia do local o mais rápido possível.</p>
+        
+        <div class="comment-section">
+          <h3>COMENTÁRIOS</h3>
+          
+          <div class="mutilador-comment adm">
+            <div class="comment-author">🧛 Vampira45 [ADM]</div>
+            <p>Esse relato é um de muitos que estamos recebendo no site, com certeza tem algo no parque. Alerta total! ⚠️</p>
+          </div>
+
+          <div class="mutilador-comment">
+            <div class="comment-author">🔍 TruthNotFoundUAISO</div>
+            <p>NAH, isso é só histeria coletiva. O Parque é monitorado e ninguém foi atacado oficialmente.</p>
+          </div>
+
+          <div class="mutilador-comment adm">
+            <div class="comment-author">🧛 Vampira45 [ADM]</div>
+            <p>Você nunca leva nada a sério. E os gritos que foram ouvidos semana passada?</p>
+          </div>
+
+          <div class="mutilador-comment">
+            <div class="comment-author">🔍 TruthNotFoundUAISO</div>
+            <p>Solteira?</p>
+          </div>
+
+          <div class="mutilador-comment adm">
+            <div class="comment-author">🧛 Vampira45 [ADM]</div>
+            <p>😒 Vai ser banido por 3 dias se continuar.</p>
+          </div>
+
+          <div class="mutilador-comment">
+            <div class="comment-author">🔍 TruthNotFoundUAISO</div>
+            <p>AFF, ok, ok. Mas esse relato n tem nada demais. copiaram descaradamente a "Kuchisake-onna"</p>
+          </div>
+
+          <div class="mutilador-comment adm">
+            <div class="comment-author">🧛 Vampira45 [ADM]</div>
+            <p>nada a ver, o Mutilador não pergunta nada. Ele só vai atrás das pessoas com uma faca. Além disso já ouviu falar do caso Carmelia Lucia?</p>
+          </div>
+
+          <div class="mutilador-comment">
+            <div class="comment-author">🔍 TruthNotFoundUAISO</div>
+            <p>Que nem metade das histórias de Slashers ??? Cs tão assistindo filmes demais. Já ouviu falar desse caso, mas ele rolou nos anos sessenta e não tinha nada de paranormal. Cs tem q parar de serem emocionados.</p>
+          </div>
+
+          <div class="mutilador-comment">
+            <div class="comment-author">@JUNINHODOGRAU</div>
+            <p>Gente bora lá investigar hoje à noite? 👀😱</p>
+          </div>
+
+          <div class="mutilador-comment">
+            <div class="comment-author">@sem_medo12</div>
+            <p>Que medo, mas confesso que fiquei curiosa... alguém vai mesmo? 👻</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Página do Enigma -->
+    <div id="enigma-page" class="page">
+      <div class="guia-semana">
+        <h2>ENIGMA DA SEMANA</h2>
+        <p>Teste seu conhecimento oculto e desbloqueie segredos proibidos!</p>
+        
+        <div class="enigma-container">
+          <div class="enigma-question">
+            "Corra de mim, corra para mim. Não importa a direção sempre serei o fim:"
+          </div>
+          
+          <div class="enigma-form">
+            <input type="text" id="enigma-answer" placeholder="Sua resposta...">
+            <button id="submit-enigma">RESPONDER</button>
+          </div>
+          
+          <div id="enigma-result" style="margin-top:20px;text-align:center;"></div>
+          
+          <div id="truths-section" class="truths-section">
+            <h3>AS TRÊS VERDADES</h3>
+            <div class="truth-item">O sobrenatural está mais próximo do que você imagina - ele habita nos espaços entre a realidade e a percepção.</div>
+            <div class="truth-item">Os rituais funcionam, mas exigem um preço que poucos estão dispostos a pagar.</div>
+            <div class="truth-item">Existem entidades que observam nossa realidade, e elas não são benevolentes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2004-2025 Paranormantes. Nenhum caso é "só lenda".</p>
+    </footer>
+  </div>
+
+  <script>
+    // Relatos disponíveis
+    const reports = ['et', 'homem'];
+    
+    // Navegação entre páginas
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Atualizar link ativo
+        document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Mostrar página correspondente
+        const targetPage = this.getAttribute('data-page');
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(`${targetPage}-page`).classList.add('active');
+        
+        // Se for a página de relatos sem relato específico, mostrar um aleatório
+        if(targetPage === 'reports' && this.id === 'random-report-link') {
+          showRandomReport();
+        }
+        
+        // Scroll para o topo
+        window.scrollTo(0, 0);
+      });
+    });
+    
+    // Mostrar relato aleatório
+    function showRandomReport() {
+      // Esconder todos os relatos primeiro
+      document.querySelectorAll('#reports-page .relato').forEach(report => {
+        report.style.display = 'none';
+      });
+      
+      // Selecionar um relato aleatório
+      const randomIndex = Math.floor(Math.random() * reports.length);
+      const selectedReport = reports[randomIndex];
+      
+      // Mostrar o relato selecionado
+      document.getElementById(`${selectedReport}-report`).style.display = 'block';
+    }
+    
+    // Clique nos resumos para abrir o relato específico
+    document.querySelectorAll('.report-summary').forEach(summary => {
+      summary.addEventListener('click', function() {
+        const reportId = this.getAttribute('data-report');
+        
+        // Se for o mutilador, mostrar a página específica
+        if (reportId === 'mutilador') {
+          // Ativar a página do mutilador
+          document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+          document.querySelector('.nav-link[data-page="reports"]').classList.add('active');
+          
+          document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+          document.getElementById('mutilador-page').classList.add('active');
+          
+          // Scroll para o topo
+          window.scrollTo(0, 0);
+          return;
+        }
+        
+        // Ativar a página de relatos
+        document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+        document.querySelector('.nav-link[data-page="reports"]').classList.add('active');
+        
+        // Esconder todas as páginas
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById('reports-page').classList.add('active');
+        
+        // Esconder todos os relatos
+        document.querySelectorAll('#reports-page .relato').forEach(report => {
+          report.style.display = 'none';
+        });
+        
+        // Mostrar o relato específico
+        document.getElementById(`${reportId}-report`).style.display = 'block';
+        
+        // Scroll para o topo
+        window.scrollTo(0, 0);
+      });
+    });
+
+    // Desbloquear comentários
+    document.getElementById('unlock-comments').addEventListener('click', function() {
+      const passwordInput = document.getElementById('comment-password');
+      const password = passwordInput.value.trim();
+      
+      if(password.toLowerCase() === 'imortais') {
+        document.getElementById('comments-section').style.display = 'block';
+        passwordInput.style.borderColor = '#0f0';
+        passwordInput.value = 'Acesso Concedido';
+        setTimeout(() => {
+          passwordInput.value = '';
+          passwordInput.style.borderColor = '';
+        }, 2000);
+      } else {
+        passwordInput.style.borderColor = '#f00';
+        passwordInput.value = 'Senha Incorreta!';
+        setTimeout(() => {
+          passwordInput.value = '';
+          passwordInput.style.borderColor = '';
+        }, 2000);
+      }
+    });
+
+    // Permitir pressionar Enter para desbloquear
+    document.getElementById('comment-password').addEventListener('keyup', function(e) {
+      if(e.key === 'Enter') {
+        document.getElementById('unlock-comments').click();
+      }
+    });
+
+    // Resposta ao enigma
+    document.getElementById('submit-enigma').addEventListener('click', function() {
+      const answerInput = document.getElementById('enigma-answer');
+      const answer = answerInput.value.trim().toLowerCase();
+      const resultElement = document.getElementById('enigma-result');
+      
+      if(answer === 'morte') {
+        resultElement.innerHTML = '<p style="color:#0f0;">Resposta Correta! Você desbloqueou as 3 Verdades.</p>';
+        document.getElementById('truths-section').style.display = 'block';
+      } else {
+        resultElement.innerHTML = '<p style="color:#f00;">Infelizmente você não foi o primeiro, mas para a próxima semana: encontre as 3 Verdades</p>';
+        document.getElementById('truths-section').style.display = 'none';
+      }
+    });
+
+    // Permitir pressionar Enter para responder o enigma
+    document.getElementById('enigma-answer').addEventListener('keyup', function(e) {
+      if(e.key === 'Enter') {
+        document.getElementById('submit-enigma').click();
+      }
+    });
+
+    // Efeito de cursor personalizado
+    document.addEventListener('DOMContentLoaded', function() {
+      const cursor = document.createElement('div');
+      cursor.style.position = 'fixed';
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      cursor.style.borderRadius = '50%';
+      cursor.style.background = 'rgba(255, 0, 0, 0.5)';
+      cursor.style.pointerEvents = 'none';
+      cursor.style.zIndex = '9999';
+      cursor.style.transform = 'translate(-50%, -50%)';
+      cursor.style.display = 'none';
+      document.body.appendChild(cursor);
+      
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursor.style.display = 'block';
+      });
+      
+      document.addEventListener('mouseleave', () => {
+        cursor.style.display = 'none';
+      });
+    });
+  
+    // Detectar três cliques na palavra "verdade" para alterar o título visível
+    (function() {
+      let clickCount = 0;
+      let timeout;
+
+      // Substituir a palavra "verdade" na intro por um span clicável
+      document.querySelectorAll('.intro').forEach(el => {
+        el.innerHTML = el.innerHTML.replace(/(verdade)/i, '<span id="clickable-truth" style="cursor:pointer;color:#ff0;">$1</span>');
+      });
+
+      const truthEl = document.getElementById('clickable-truth');
+      if (truthEl) {
+        truthEl.addEventListener('click', () => {
+          clickCount++;
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            clickCount = 0;
+          }, 1000); // 1 segundo de margem entre cliques
+
+          if (clickCount === 3) {
+            document.querySelector('header h1').textContent = 'Imortais';
+            clickCount = 0;
+          }
+        });
+      }
+    })();
+
+    // Função para transformar as imagens quando clicadas (apenas na página do mutilador)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configuração das imagens transformáveis
+      const transformableImages = {
+        image1: {
+          original: "caminho.jpeg",
+          transformed: "Sorriso.png"
+        },
+        image2: {
+          original: "Estatua.jpeg",
+          transformed: "Fraqueza.png"
+        }
+      };
+
+      // Adicionar evento de clique para cada imagem
+      document.querySelectorAll('.image-block').forEach(block => {
+        const img = block.querySelector('img');
+        const id = block.id;
+        
+        // Verificar se a imagem é transformável
+        if(transformableImages[id]) {
+          let isTransformed = false;
+          
+          block.addEventListener('click', function() {
+            // Criar efeito de flash
+            block.style.boxShadow = '0 0 20px #ff0000';
+            setTimeout(() => {
+              block.style.boxShadow = '';
+            }, 300);
+            
+            // Transformar a imagem
+            if(!isTransformed) {
+              img.src = transformableImages[id].transformed;
+              isTransformed = true;
+              
+              // Adicionar efeito de brilho vermelho
+              img.style.filter = 'sepia(60%) hue-rotate(-50deg) brightness(80%)';
+              img.style.border = '1px solid #ff0000';
+              
+              // Adicionar sombra vermelha
+              block.style.boxShadow = '0 0 15px rgba(255, 0, 0, 0.7)';
+            } else {
+              // Voltar para a imagem original
+              img.src = transformableImages[id].original;
+              isTransformed = false;
+              img.style.filter = '';
+              img.style.border = '1px solid rgba(255, 0, 0, 0.3)';
+              block.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.5)';
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
